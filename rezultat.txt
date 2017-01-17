@@ -1,0 +1,76 @@
+cuBLAS - CUDA Basic Linear Algebra Subroutines
+
+Način testiranja - množenje matrica
+
+HW info:
+  Nazgul: GPU: NVIDIA Corporation GM204 [GeForce GTX 970] (puta 2, postoji CUBLAS XT koji podržava load balancing, ali njega nismo testirali pošto TX1 nema više GPU-ova)
+          CPU: Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
+
+  TX1: 64-bit quad-core ARM Cortex-A57 CPU with a 256-core Maxwell GPU
+
+
+1. matMul.c
+  - "naivno" množenje matrica u C-u, računanje svakog elementa odredišne matrice na temelju retka i stupca izvorišnih matrica
+  - nema paralelizacije, najveća optimizacija SSE4 (na nazgulu tj. Intelu, TX1 ne podržava pa je kompajlirano bez -msse4 na oba računala), poravnanje memorije
+  - za testiranje CPU-a (i memorije)
+  
+2. množenje matrica pomoću biblioteke cuBLAS (CUBLAS baziran na CUDA-i)
+  - gotove metode za matrične i vektorske operacije (među ostalima)
+  - CUBLAS funkcije podijeljene u 3 razine (skalar-vektor, matrica-vektor, matrica-matrica)
+  - Kratki opis načina funkcioniranja cuBLAS-a:
+    - vrlo jednostavno prevođenje analogno gcc-u, potrebno uključiti biblioteku cublas
+      - "nvcc -o program program.c -lcublas"
+    - prije korištenja implementiranih operacija, potrebno je dohvatiti/rezervirati handle koji se zatim predaje svakom pozivu (podrutini)
+      - omogućava bolje upravljanje u slučaju višedretvenih programa i slično
+    - korištenja funkcija za množenje matrica: cublasHgemm i cublasDgemm (H half-precision, D double-precision, float i double)
+    - podatke koje se obrađuje potrebno je "downloadati" na GPU, prije toga treba rezervirati memoriju s cudaMalloc
+    - nakon obrade, podaci se "uploadaju" u radnu memoriju iz GPU-a
+
+
+Rezultati:
+
+Kvadratne matrice, vrijeme u sekundama
+Tip: float (10 iteracija za svaku veličinu)
+Veličina matrice	TX1		nazgul (GTX 970)
+2	 		3.18e-05	6.8e-06
+4			2.55e-05	5.9e-06
+8			2.41e-05	6.8e-06
+16			2.36e-05	4.2e-06
+32			2.91e-05	4.9e-06
+64			2.87e-05	4.8e-06
+128			3.36e-05	5.4e-06
+256			0.0005768	8.8e-06
+512			0.0005776	7.1e-06
+1024			0.000579	9.6e-06
+
+Tip: double (10 iteracija za svaku veličinu)
+Veličina matrice	  TX1		nazgul (GTX 970)
+2	 		  2.99e-05	4.5e-06
+4			  2.58e-05	4e-06
+8			  2.46e-05	4.9e-06
+16			  2.34e-05	4.9e-06
+32			  2.92e-05	5.6e-06
+64			  2.71e-05	5.6e-06
+128			  3.26e-05	5.7e-06
+256			  0.0005769	1.39e-05
+512			  0.0005805	1.37e-05
+1024			  0.000584	1e-05
+
+Bonus:
+
+CPU gcc s -O3, na nazgulu kompajlirano bez -msse4!
+
+Tip: float (10 iteracija za svaku veličinu)
+Veličina matrice	TX1		nazgul
+2	 		3e-07		1e-07
+4			6e-07		1e-07
+8			2.1e-06		1.3e-06
+16			1.17e-05	3.3e-06
+32			7.53e-05	1.64e-05
+64			0.0005889	0.0001071
+128			0.0112163	0.0012035
+256			0.0870655	0.0159207
+512			0.715215	0.169786
+1024			36.7075		1.4348
+
+Napomena: sva vremena u sekundama

@@ -1,0 +1,11 @@
+n = 2, prosjecno vrijeme po mnozenju: 1e-07 sekundi
+n = 4, prosjecno vrijeme po mnozenju: 1e-07 sekundi
+n = 8, prosjecno vrijeme po mnozenju: 1.3e-06 sekundi
+n = 16, prosjecno vrijeme po mnozenju: 3.3e-06 sekundi
+n = 32, prosjecno vrijeme po mnozenju: 1.64e-05 sekundi
+n = 64, prosjecno vrijeme po mnozenju: 0.0001071 sekundi
+n = 128, prosjecno vrijeme po mnozenju: 0.0012035 sekundi
+n = 256, prosjecno vrijeme po mnozenju: 0.0159207 sekundi
+n = 512, prosjecno vrijeme po mnozenju: 0.169786 sekundi
+n = 1024, prosjecno vrijeme po mnozenju: 1.4348 sekundi
+Broj iteracija za svaki n: 10

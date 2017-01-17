@@ -1,0 +1,51 @@
+simpleCUBLAS test running..
+Matrix size: 2x2
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 2e-07
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 6.8e-06
+Matrix size: 4x4
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 4e-07
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 5.9e-06
+Matrix size: 8x8
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 3.7e-06
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 6.8e-06
+Matrix size: 16x16
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 1.05e-05
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 4.2e-06
+Matrix size: 32x32
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 7.47e-05
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 4.9e-06
+Matrix size: 64x64
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 0.0006016
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 4.8e-06
+Matrix size: 128x128
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 0.0050261
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 5.4e-06
+Matrix size: 256x256
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 0.0446471
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 8.8e-06
+Matrix size: 512x512
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 0.488916
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 7.1e-06
+Matrix size: 1024x1024
+Performing multiplication using plain C code.
+10 iters. Time per iteration: 4.11369
+Performing multiplication using CUBLAS.
+10 iters. Time per iteration: 9.6e-06
